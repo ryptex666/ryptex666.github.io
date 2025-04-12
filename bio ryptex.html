@@ -1,0 +1,103 @@
+<html lang="ru">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   ryptex bio
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Press Start 2P', cursive;
+        }
+  </style>
+ </head>
+ <body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen p-4 relative">
+  <video autoplay="" class="absolute top-0 left-0 w-full h-full object-cover z-0" loop="" muted="">
+   <source src="http://zAq7glPhnH6ooKj:0jcAVcDkjAI4mAB@localhost:44389/storage/emulated/0/Download/ryptex.mp4" type="video/mp4"/>
+   Your browser does not support the video tag.
+  </video>
+  <div class="bg-gray-800 bg-opacity-80 p-6 rounded-lg shadow-lg text-center w-full max-w-md z-10">
+   <div class="relative inline-block mb-4">
+    <img alt="Pixel art avatar of a character with anime features" class="mx-auto rounded-full border-4 border-white" height="150" src="https://i.postimg.cc/LXRhncSw/IMG-20250405-194749-010.jpg" width="150"/>
+   </div>
+   <h1 class="text-2xl mb-2">
+    ryptex bio
+   </h1>
+   <p class="mb-4">
+name: ryptex
+from: 🇷🇺
+age: 14
+username: @ryptex666
+discord: @ryptexkiller
+tiktok: @ryptexkiller
+   </p>
+   <div class="flex justify-center space-x-4 mb-4">
+    <a class="text-blue-500" href="https://t.me/ryptex666">
+     <i class="fab fa-telegram fa-2x">
+     </i>
+    </a>
+    <a class="text-black" href="https://www.tiktok.com/@ryptexkiller">
+     <i class="fab fa-tiktok fa-2x">
+     </i>
+    </a>
+   </div>
+   <div class="bg-gray-700 bg-opacity-80 p-4 rounded-lg">
+    <h2 class="text-xl mb-2">
+     комментарий
+    </h2>
+    <form class="mb-4" id="commentForm">
+     <input class="w-full p-2 mb-2 rounded-lg bg-gray-800 text-white" id="nickname" placeholder="Nickname" type="text"/>
+     <textarea class="w-full p-2 mb-2 rounded-lg bg-gray-800 text-white" id="comment" placeholder="Comment"></textarea>
+     <button class="w-full p-2 bg-blue-500 rounded-lg" type="submit">
+      Submit
+     </button>
+    </form>
+    <div class="space-y-4" id="comments">
+     <!-- Comments will be inserted here -->
+    </div>
+   </div>
+  </div>
+  <script>
+   document.getElementById('commentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nickname = document.getElementById('nickname').value;
+            const comment = document.getElementById('comment').value;
+            if (nickname && comment) {
+                const commentSection = document.getElementById('comments');
+                const newComment = document.createElement('div');
+                newComment.classList.add('bg-gray-800', 'p-4', 'rounded-lg');
+                newComment.innerHTML = `<strong>${nickname}</strong><p>${comment}</p>`;
+                commentSection.insertBefore(newComment, commentSection.firstChild);
+                document.getElementById('nickname').value = '';
+                document.getElementById('comment').value = '';
+                saveComment(nickname, comment);
+            }
+        });
+
+        function saveComment(nickname, comment) {
+            let comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.unshift({ nickname, comment });
+            localStorage.setItem('comments', JSON.stringify(comments));
+            displayComments();
+        }
+
+        function displayComments() {
+            const commentSection = document.getElementById('comments');
+            commentSection.innerHTML = '';
+            let comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.forEach(comment => {
+                const newComment = document.createElement('div');
+                newComment.classList.add('bg-gray-800', 'p-4', 'rounded-lg');
+                newComment.innerHTML = `<strong>${comment.nickname}</strong><p>${comment.comment}</p>`;
+                commentSection.appendChild(newComment);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', displayComments);
+  </script>
+ </body>
+</html>
